@@ -237,3 +237,4 @@ This project was built with a strong focus on:
 * Real-world backend best practices
 
 The application is fully REST-compliant, testable, and production-ready in structure.
+
