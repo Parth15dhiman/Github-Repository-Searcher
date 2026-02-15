@@ -10,7 +10,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/githubdb
     username: githubuser
-    password: {GITHUB_PWD}
+    password: ${GITHUB_PWD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
