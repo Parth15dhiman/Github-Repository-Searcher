@@ -3,6 +3,7 @@ package com.company.githubsearcher.controller;
 import com.company.githubsearcher.dto.GitHubSearchRequest;
 import com.company.githubsearcher.entity.GitHubRepositoryEntity;
 import com.company.githubsearcher.service.GitHubSearchService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +22,7 @@ public class GitHubController {
 
     @PostMapping("/search")
     public ResponseEntity<?> searchRepositories(
-            @RequestBody GitHubSearchRequest request) {
+            @Valid @RequestBody GitHubSearchRequest request) {
 
         List<GitHubRepositoryEntity> repositories =
                 gitHubSearchService.searchAndSave(request);
