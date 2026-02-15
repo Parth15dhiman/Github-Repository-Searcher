@@ -8,6 +8,7 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 
@@ -64,19 +65,21 @@ public class GitHubApiClient {
 
         StringBuilder q = new StringBuilder(request.getQuery());
 
-        if (request.getLanguage() != null) {
-            q.append("+language:").append(request.getLanguage());
+        if (request.getLanguage() != null && !request.getLanguage().isBlank()) {
+            q.append(" language:").append(request.getLanguage());
         }
 
-        String sort = request.getSort() != null
+        String sort = request.getSort() != null && !request.getSort().isBlank()
                 ? request.getSort()
                 : "stars";
 
-        return URI.create(
-                GITHUB_SEARCH_URL +
-                        "?q=" + q +
-                        "&sort=" + sort +
-                        "&order=desc"
-        );
+        return UriComponentsBuilder
+                .fromHttpUrl(GITHUB_SEARCH_URL)
+                .queryParam("q", q.toString())
+                .queryParam("sort", sort)
+                .queryParam("order", "desc")
+                .build()
+                .encode()
+                .toUri();
     }
 }

@@ -55,4 +55,14 @@ public class GitHubSearchService {
 
         return repository.save(entity);
     }
+
+    public List<GitHubRepositoryEntity> getRepositories(
+            String language,
+            Integer minStars,
+            String sort) {
+
+        String effectiveSort = (sort == null) ? "stars" : sort;
+        return repository.findFiltered(language, minStars, effectiveSort);
+    }
+
 }

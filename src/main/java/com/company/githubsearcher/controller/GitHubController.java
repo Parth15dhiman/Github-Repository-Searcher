@@ -33,4 +33,19 @@ public class GitHubController {
                 )
         );
     }
+
+    @GetMapping("/repositories")
+    public ResponseEntity<?> getRepositories(
+            @RequestParam(required = false) String language,
+            @RequestParam(required = false) Integer minStars,
+            @RequestParam(defaultValue = "stars") String sort) {
+
+        return ResponseEntity.ok(
+                Map.of(
+                        "repositories",
+                        gitHubSearchService.getRepositories(language, minStars, sort)
+                )
+        );
+    }
+
 }
